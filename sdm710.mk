@@ -334,6 +334,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.vibrator.service
 
+# ViperFX
+$(call inherit-product, packages/apps/ViPER4AndroidFX/config.mk)
+
 # Wi-Fi
 PRODUCT_PACKAGES += \
     android.hardware.wifi-service \
