@@ -166,8 +166,10 @@ DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
     $(COMMON_PATH)/framework_compatibility_matrix.xml \
     hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml \
     hardware/qcom-caf/common/vendor_framework_compatibility_matrix_legacy.xml \
-    hardware/xiaomi/vintf/xiaomi_framework_compatibility_matrix.xml
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/manifest.xml
+    hardware/xiaomi/vintf/xiaomi_framework_compatibility_matrix.xml \
+    vendor/lunaris/dolby/vintf/dolby_framework_compatibility_matrix.xml
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/manifest.xml \
+    vendor/lunaris/dolby/vintf/dolby_manifest.xml
 ifeq ($(TARGET_HAS_FM),true)
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/manifest_fm.xml
 endif
@@ -196,3 +198,6 @@ WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 # Inherit the proprietary files
 include vendor/xiaomi/sdm710-common/BoardConfigVendor.mk
+
+# Include lunaris dolby
+include vendor/lunaris/dolby/BoardConfigDolby.mk
