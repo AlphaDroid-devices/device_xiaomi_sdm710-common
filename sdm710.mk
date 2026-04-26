@@ -124,7 +124,7 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.memtrack-service
 
 # Dolby
-$(call inherit-product, vendor/lunaris/dolby/dolby.mk)
+$(call inherit-product, packages/apps/LunarisDolby/dolby.mk)
 
 # DRM
 PRODUCT_PACKAGES += \
