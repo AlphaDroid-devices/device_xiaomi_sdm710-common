@@ -28,6 +28,7 @@ import android.util.Log;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 public class PickupSensor implements SensorEventListener {
 
@@ -51,6 +52,9 @@ public class PickupSensor implements SensorEventListener {
     }
 
     private Future<?> submit(Runnable runnable) {
+        if (mExecutorService.isShutdown()) {
+            return null;
+        }
         return mExecutorService.submit(runnable);
     }
 
@@ -76,6 +80,9 @@ public class PickupSensor implements SensorEventListener {
     }
 
     protected void enable() {
+        if (mSensor == null) {
+            return;
+        }
         if (DEBUG) Log.d(TAG, "Enabling");
         submit(() -> {
             mSensorManager.registerListener(this, mSensor,
@@ -85,9 +92,34 @@ public class PickupSensor implements SensorEventListener {
     }
 
     protected void disable() {
+        if (mSensor == null) {
+            return;
+        }
         if (DEBUG) Log.d(TAG, "Disabling");
-        submit(() -> {
-            mSensorManager.unregisterListener(this, mSensor);
+        submit(() -> mSensorManager.unregisterListener(this, mSensor));
+    }
+
+    protected void destroy() {
+        Future<?> future = submit(() -> {
+            if (mSensor != null) {
+                mSensorManager.unregisterListener(this, mSensor);
+            }
         });
+        try {
+            if (future != null) {
+                future.get();
+            }
+        } catch (Exception e) {
+            Log.w(TAG, "Failed to unregister pickup sensor", e);
+        }
+        mExecutorService.shutdown();
+        try {
+            if (!mExecutorService.awaitTermination(1, TimeUnit.SECONDS)) {
+                mExecutorService.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            mExecutorService.shutdownNow();
+            Thread.currentThread().interrupt();
+        }
     }
 }

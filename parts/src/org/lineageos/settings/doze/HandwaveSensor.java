@@ -74,12 +74,18 @@ public class HandwaveSensor implements SensorEventListener {
     }
 
     protected void enable() {
+        if (mSensor == null) {
+            return;
+        }
         if (DEBUG) Log.d(TAG, "Enabling");
         mSensorManager.registerListener(this, mSensor,
                 SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     protected void disable() {
+        if (mSensor == null) {
+            return;
+        }
         if (DEBUG) Log.d(TAG, "Disabling");
         mSensorManager.unregisterListener(this, mSensor);
     }

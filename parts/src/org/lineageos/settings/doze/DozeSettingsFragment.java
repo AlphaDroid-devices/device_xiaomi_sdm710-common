@@ -18,26 +18,22 @@
 package org.lineageos.settings.doze;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.CompoundButton;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
-import androidx.preference.PreferenceFragment;
+import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.android.settingslib.widget.MainSwitchPreference;
 
 import org.lineageos.settings.R;
 
-public class DozeSettingsFragment extends PreferenceFragment
+public class DozeSettingsFragment extends PreferenceFragmentCompat
         implements CompoundButton.OnCheckedChangeListener, Preference.OnPreferenceChangeListener {
 
     private MainSwitchPreference mSwitchBar;

@@ -23,6 +23,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.util.Log;
 
 public class DozeService extends Service {
@@ -49,6 +50,10 @@ public class DozeService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (DEBUG) Log.d(TAG, "Starting service");
+        PowerManager pm = getSystemService(PowerManager.class);
+        if (pm != null && !pm.isInteractive()) {
+            onDisplayOff();
+        }
         return START_STICKY;
     }
 
@@ -56,8 +61,8 @@ public class DozeService extends Service {
     public void onDestroy() {
         if (DEBUG) Log.d(TAG, "Destroying service");
         super.onDestroy();
-        this.unregisterReceiver(mScreenStateReceiver);
-        mPickupSensor.disable();
+        unregisterReceiver(mScreenStateReceiver);
+        mPickupSensor.destroy();
         mHandwaveSensor.disable();
         mPocketSensor.disable();
     }
@@ -69,15 +74,9 @@ public class DozeService extends Service {
 
     private void onDisplayOn() {
         if (DEBUG) Log.d(TAG, "Display on");
-        if (DozeUtils.isPickUpEnabled(this)) {
-            mPickupSensor.disable();
-        }
-        if (DozeUtils.isHandwaveGestureEnabled(this)) {
-            mHandwaveSensor.disable();
-        }
-        if (DozeUtils.isPocketGestureEnabled(this)) {
-            mPocketSensor.disable();
-        }
+        mPickupSensor.disable();
+        mHandwaveSensor.disable();
+        mPocketSensor.disable();
     }
 
     private void onDisplayOff() {

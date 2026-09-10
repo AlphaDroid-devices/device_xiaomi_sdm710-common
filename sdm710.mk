@@ -94,10 +94,6 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
     android.hardware.camera.provider@2.4-service.sdm710
 
-# Configstore
-PRODUCT_PACKAGES += \
-    disable_configstore
-
 # Consumer IR
 PRODUCT_PACKAGES += \
     android.hardware.ir-service.lineage
