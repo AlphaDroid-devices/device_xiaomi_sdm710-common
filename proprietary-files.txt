@@ -35,6 +35,12 @@ vendor/lib/libacdbloader.so|d1a0c21891a0aead55fd41e430ac10347b5aebab
 vendor/lib/soundfx/libasphere.so
 vendor/lib/soundfx/libshoebox.so
 
+# Audio (sound trigger) - from grus
+vendor/etc/sound_trigger_mixer_paths.xml|f4babbaab6fcd0a15df2997794a800dba7252c51
+vendor/etc/sound_trigger_platform_info.xml|9fcdd0d745ea145f3a843a1c76d896135d6f0de4
+vendor/lib/hw/sound_trigger.primary.sdm710.so|d19d239ad243d5adebcace5fc0cb334e88d516e4
+vendor/lib64/hw/sound_trigger.primary.sdm710.so|122b62f014edd22abbeb611df4ada6783b4c2e39
+
 # Bluetooth
 vendor/bin/hw/android.hardware.bluetooth@1.0-service-qti
 vendor/etc/init/android.hardware.bluetooth@1.0-service-qti.rc
